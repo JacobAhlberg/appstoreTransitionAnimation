@@ -17,7 +17,7 @@ class TransitionManager: UIPercentDrivenInteractiveTransition, UIViewControllerA
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        
+        print("hej")
     }
     
     
