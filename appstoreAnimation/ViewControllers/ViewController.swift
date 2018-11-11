@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
 
@@ -25,6 +25,7 @@ extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedCell = collectionView.cellForItem(at: indexPath)
         let detailVC = DetailVC.create()
+        
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

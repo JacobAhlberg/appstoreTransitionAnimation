@@ -52,4 +52,29 @@ extension DetailVC: Animatable {
     var childView: UIView? {
         return self.commonView
     }
+    
+    func presentingView(sizeAnimator: UIViewPropertyAnimator, positionAnimator: UIViewPropertyAnimator, fromFrame: CGRect, toFrame: CGRect) {
+        self.commonViewHeightConstraint.constant = fromFrame.height
+        
+        self.closeBtn.alpha = 1
+        
+        self.asCard(true)
+        
+        self.view.layoutIfNeeded()
+        
+        self.commonViewHeightConstraint.constant = 500
+        sizeAnimator.addAnimations {
+            self.view.layoutIfNeeded()
+        }
+        
+        positionAnimator.addAnimations {
+            self.asCard(false)
+        }
+        
+    }
+    
+    func dismissingView(sizeAnimator: UIViewPropertyAnimator, positionAnimator: UIViewPropertyAnimator, fromFrame: CGRect, toFrame: CGRect) {
+        
+    }
+    
 }

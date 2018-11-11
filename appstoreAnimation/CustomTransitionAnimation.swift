@@ -116,6 +116,26 @@ extension CustomTransitionAnimation {
             toFrame: destinationFrame
         )
         
+        let completionHandler: (UIViewAnimatingPosition) -> () =  { _ in
+            toView.transform = .identity
+            toView.frame = originFrame
+            
+            toView.layoutIfNeeded()
+            
+            fromChild.isHidden = false
+            
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+        
+        // Set completion on longest duration
+        if self.positioningDuration > self.resizingDuration {
+            positionAnimator.addCompletion(completionHandler)
+        } else {
+            sizeAnimator.addCompletion(completionHandler)
+        }
+        
+        positionAnimator.startAnimation()
+        sizeAnimator.startAnimation()
         
         container.addSubview(toView)
         
