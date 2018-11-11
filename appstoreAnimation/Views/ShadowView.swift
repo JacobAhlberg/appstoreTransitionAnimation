@@ -8,7 +8,13 @@
 
 import UIKit
 
+@IBDesignable
 class ShadowView: UIView {
+    
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        self.commonInit()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,10 +27,11 @@ class ShadowView: UIView {
     }
     
     func commonInit() {
-        self.layer.shadowRadius = 8
-        self.layer.shadowOffset = CGSize(width: 0, height: 8)
-        self.layer.shadowOpacity = 0.25
-        self.layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowRadius = 8
+        layer.shadowOffset = CGSize(width: 20, height: 20)
+        layer.shadowOpacity = 1
+        layer.masksToBounds = false
     }
     
     
