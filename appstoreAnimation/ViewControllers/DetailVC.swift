@@ -74,6 +74,30 @@ extension DetailVC: Animatable {
     }
     
     func dismissingView(sizeAnimator: UIViewPropertyAnimator, positionAnimator: UIViewPropertyAnimator, fromFrame: CGRect, toFrame: CGRect) {
+        // If the user has scrolled down in the content, force the common view to go to the top of the screen.
+        self.commonViewTopConstraint.isActive = true
+        
+        // If the top card is completely off screen, we move it to be JUST off screen.
+        // This makes for a cleaner looking animation.
+        if scrollView.contentOffset.y > commonView.frame.height {
+            self.commonViewTopConstraint.constant = -commonView.frame.height
+            self.view.layoutIfNeeded()
+            // Still want to animate the common view getting pinned to the top of the view
+            self.commonViewTopConstraint.constant = 0
+        }
+        
+        // Animate the height of the common view to be the same size as the TO frame.
+        // Also animate hiding the close button
+        self.commonViewHeightConstraint.constant = toFrame.height
+        sizeAnimator.addAnimations {
+            self.closeBtn.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+        
+        // Animate the view to look like a card
+        positionAnimator.addAnimations {
+            self.asCard(true)
+        }
         
     }
     
