@@ -54,19 +54,25 @@ extension DetailVC: Animatable {
     }
     
     func presentingView(sizeAnimator: UIViewPropertyAnimator, positionAnimator: UIViewPropertyAnimator, fromFrame: CGRect, toFrame: CGRect) {
+        // Make the common view the same size as the initial frame
         self.commonViewHeightConstraint.constant = fromFrame.height
         
+        // Show the close button
         self.closeBtn.alpha = 1
         
+        // Make the view look like a card
         self.asCard(true)
         
+        // Redraw the view to update the previous changes
         self.view.layoutIfNeeded()
         
+        // Animate the common view to a height of 500 points
         self.commonViewHeightConstraint.constant = 500
         sizeAnimator.addAnimations {
             self.view.layoutIfNeeded()
         }
         
+        // Animate the view to not look like a card
         positionAnimator.addAnimations {
             self.asCard(false)
         }
@@ -82,6 +88,7 @@ extension DetailVC: Animatable {
         if scrollView.contentOffset.y > commonView.frame.height {
             self.commonViewTopConstraint.constant = -commonView.frame.height
             self.view.layoutIfNeeded()
+            
             // Still want to animate the common view getting pinned to the top of the view
             self.commonViewTopConstraint.constant = 0
         }

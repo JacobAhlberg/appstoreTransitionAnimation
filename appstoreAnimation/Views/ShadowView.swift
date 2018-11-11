@@ -27,11 +27,11 @@ class ShadowView: UIView {
     }
     
     func commonInit() {
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 8
-        layer.shadowOffset = CGSize(width: 20, height: 20)
-        layer.shadowOpacity = 1
-        layer.masksToBounds = false
+//        layer.shadowColor = UIColor.black.cgColor
+//        layer.shadowRadius = 8
+//        layer.shadowOffset = CGSize(width: 20, height: 20)
+//        layer.shadowOpacity = 1
+//        layer.masksToBounds = false
     }
     
     

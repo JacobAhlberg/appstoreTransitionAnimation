@@ -174,10 +174,13 @@
                                     <constraint firstAttribute="bottom" secondItem="i2m-7H-zlz" secondAttribute="bottom" id="vR3-8j-0n8"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBy-if-tV6">
-                                <rect key="frame" x="310" y="36" width="49" height="34"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <state key="normal" title="Close">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBy-if-tV6">
+                                <rect key="frame" x="324" y="36" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="rgK-kX-eU7"/>
+                                    <constraint firstAttribute="width" constant="35" id="tqv-nk-LyP"/>
+                                </constraints>
+                                <state key="normal" image="error">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -229,4 +232,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="error" width="51.200000762939453" height="51.200000762939453"/>
+    </resources>
 </document>
