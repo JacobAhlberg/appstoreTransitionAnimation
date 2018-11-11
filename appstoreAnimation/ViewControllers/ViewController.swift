@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    fileprivate var selectedCell: UICollectionViewCell?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +23,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedCell = collectionView.cellForItem(at: indexPath)
         let detailVC = DetailVC.create()
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
@@ -37,5 +41,15 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     
+}
+
+extension ViewController: Animatable {
+    var containerView: UIView? {
+        return self.collectionView
+    }
+    
+    var childView: UIView? {
+        return self.selectedCell
+    }
 }
 

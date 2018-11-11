@@ -43,3 +43,13 @@ class DetailVC: UIViewController {
     
 
 }
+
+extension DetailVC: Animatable {
+    var containerView: UIView? {
+        return self.view
+    }
+    
+    var childView: UIView? {
+        return self.commonView
+    }
+}
