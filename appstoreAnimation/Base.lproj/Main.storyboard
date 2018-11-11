@@ -37,7 +37,19 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EcU-1P-cYd">
                                                     <rect key="frame" x="0.0" y="0.0" width="180" height="173"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zx2-Xu-8oX" customClass="CommonView" customModule="appstoreAnimation" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="180" height="173"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="zx2-Xu-8oX" firstAttribute="leading" secondItem="EcU-1P-cYd" secondAttribute="leading" id="4or-mO-ye2"/>
+                                                        <constraint firstItem="zx2-Xu-8oX" firstAttribute="top" secondItem="EcU-1P-cYd" secondAttribute="top" id="8DB-77-9Ge"/>
+                                                        <constraint firstAttribute="bottom" secondItem="zx2-Xu-8oX" secondAttribute="bottom" id="BzD-uc-4qd"/>
+                                                        <constraint firstAttribute="trailing" secondItem="zx2-Xu-8oX" secondAttribute="trailing" id="FWe-j2-EW1"/>
+                                                    </constraints>
                                                 </view>
                                             </subviews>
                                         </view>
