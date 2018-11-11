@@ -77,6 +77,7 @@ extension CustomTransitionAnimation {
             return
         }
         
+        container.addSubview(toView)
         
         let originFrame = CGRect(
             origin: fromContainer.convert(fromChild.frame.origin, to: container),
@@ -136,13 +137,75 @@ extension CustomTransitionAnimation {
         
         positionAnimator.startAnimation()
         sizeAnimator.startAnimation()
-        
-        container.addSubview(toView)
-        
     }
     
     internal func dismissTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        let container = transitionContext.containerView
         
+        guard let fromVC = transitionContext.viewController(forKey: .from) as? Animatable,
+            let fromView = transitionContext.view(forKey: .from)
+            else {
+                return
+        }
+        
+        // Views we are animating TO
+        guard let toVC = transitionContext.viewController(forKey: .to) as? Animatable,
+            let toView = transitionContext.view(forKey: .to),
+            let toContainer = toVC.containerView,
+            let toChild = toVC.childView
+            else {
+                return
+        }
+        
+        container.addSubview(toView)
+        container.addSubview(fromView)
+        
+        let originFrame = fromView.frame
+        let destinationFrame = CGRect(
+            origin: toContainer.convert(toChild.frame.origin, to: container),
+            size: toChild.frame.size
+        )
+        
+        toChild.isHidden = true
+        
+        let yDiff = destinationFrame.origin.y - originFrame.origin.y
+        let xDiff = destinationFrame.origin.x - originFrame.origin.x
+        
+        let positionAnimator = UIViewPropertyAnimator(duration: self.positioningDuration, dampingRatio: 0.7)
+        positionAnimator.addAnimations {
+            // Move the view in the Y direction
+            fromView.transform = CGAffineTransform(translationX: 0, y: yDiff)
+        }
+        
+        let sizeAnimator = UIViewPropertyAnimator(duration: self.resizingDuration, curve: .easeInOut)
+        sizeAnimator.addAnimations {
+            fromView.frame.size = destinationFrame.size
+            fromView.layoutIfNeeded()
+            
+            // Move the view in the X direction. We concatinate here because we do not want to overwrite our
+            // previous transformation
+            fromView.transform = fromView.transform.concatenating(CGAffineTransform(translationX: xDiff, y: 0))
+        }
+        
+        fromVC.dismissingView(sizeAnimator: sizeAnimator, positionAnimator: positionAnimator, fromFrame: originFrame, toFrame: destinationFrame)
+        
+        let completionHandler: (UIViewAnimatingPosition) -> Void = { _ in
+            fromView.removeFromSuperview()
+            toChild.isHidden = false
+            
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+        
+        // Put the completion handler on the longest lasting animator
+        if self.positioningDuration > self.resizingDuration {
+            positionAnimator.addCompletion(completionHandler)
+        } else {
+            sizeAnimator.addCompletion(completionHandler)
+        }
+        
+        // Kick off the two animations
+        positionAnimator.startAnimation()
+        sizeAnimator.startAnimation()
     }
     
 }
