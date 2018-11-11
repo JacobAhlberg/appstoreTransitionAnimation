@@ -8,6 +8,7 @@
 
 import UIKit
 
-class Cell: UICollectionViewCell {
+
+class CardCell: UICollectionViewCell {
     
 }
